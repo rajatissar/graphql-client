@@ -12,7 +12,7 @@ const execute_query = async (logging_key, query, variables) => {
   try {
     const client = get_graphql_client();
     const data = await client.request(query, variables);
-    console.log(`${logging_key} - data = ${data}`);
+    console.log(`${logging_key} - data = ${JSON.stringify(data)}`);
   } catch (error) {
     console.log(`${logging_key} - error_message = ${error.message}`);
     console.log(error.stack);
