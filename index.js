@@ -1,8 +1,25 @@
 import { execute_query } from './src/graphql-request';
 
-const find_user_query = `
-query ($jwt: String, $user_id: String = "11"){
-  find_user(token: $jwt, user_id: $user_id, is_authenticate: true) {
+const login_user_mutation =
+  `
+mutation ($user_email: String!, $password: String!){
+  login_user(user_email: $user_email, user_password: $password) {
+    user_id
+    user_email
+    token
+  }
+}
+`;
+
+const login_user_variable = {
+  user_email: 'rajat.kumar@daffodilsw.com',
+  password: 'a'
+};
+
+const find_user_query =
+  `
+query ($jwt: String, $user_id: String = "11", $is_authenticate: Boolean = false){
+  find_user(token: $jwt, user_id: $user_id, is_authenticate: $is_authenticate) {
     user_id
     user_email
     user_name {
@@ -19,7 +36,14 @@ query ($jwt: String, $user_id: String = "11"){
 `;
 
 const find_user_variable = {
-  user_id: '16'
-}
+  user_id: '16',
+  is_authenticate: false
+};
 
-execute_query(null, find_user_query, find_user_variable)
+
+async function executed_graphql_query() {
+  await execute_query(null, login_user_mutation, login_user_variable);
+  await execute_query(null, find_user_query, find_user_variable);
+};
+
+executed_graphql_query();
