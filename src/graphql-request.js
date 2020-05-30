@@ -15,9 +15,13 @@ const get_graphql_client = () => {
 const execute_query = async (logging_key, query, variables) => {
   try {
     const client = get_graphql_client();
+
     const data = await client.request(query, variables);
     console.log(`${logging_key} - data = ${JSON.stringify(data)}`);
+    
     const token = _.get(data, 'login_user.token', null);
+    console.log(`${logging_key} - token = ${token}`);
+
     if (token) {
       process.env.token = token
     }

@@ -18,8 +18,8 @@ const login_user_variable = {
 
 const find_user_query =
   `
-query ($jwt: String, $user_id: String = "11", $is_authenticate: Boolean = false){
-  find_user(token: $jwt, user_id: $user_id, is_authenticate: $is_authenticate) {
+query ($jwt: String, $user_id: String = "11", $is_authenticate: Boolean = false, $is_db: Boolean){
+  find_user(token: $jwt, user_id: $user_id, is_authenticate: $is_authenticate, is_db: $is_db) {
     user_id
     user_email
     user_name {
@@ -37,7 +37,8 @@ query ($jwt: String, $user_id: String = "11", $is_authenticate: Boolean = false)
 
 const find_user_variable = {
   user_id: '16',
-  is_authenticate: false
+  is_authenticate: false,
+  is_db: false
 };
 
 
